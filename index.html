@@ -475,6 +475,30 @@ footer{
       <div>Worldwide Service</div>
       <a href="tel:+15206985802">+1 (520) 698-5802</a>
     </div>
+    <div class="language-selector">
+  <label for="languageSelect">🌐</label>
+  <select id="languageSelect" onchange="changeLanguage(this.value)">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+    <option value="es">Español</option>
+    <option value="it">Italiano</option>
+    <option value="de">Deutsch</option>
+    <option value="pt">Português</option>
+    <option value="nl">Nederlands</option>
+    <option value="vi">Tiếng Việt</option>
+    <option value="tr">Türkçe</option>
+    <option value="ar">العربية</option>
+    <option value="zh">中文</option>
+    <option value="ja">日本語</option>
+    <option value="ko">한국어</option>
+    <option value="hi">हिन्दी</option>
+    <option value="id">Bahasa Indonesia</option>
+    <option value="th">ไทย</option>
+    <option value="pl">Polski</option>
+    <option value="ru">Русский</option>
+    <option value="uk">Українська</option>
+  </select>
+</div>
   </div>
 </header>
 
@@ -845,6 +869,277 @@ document
 
   });
 
+const translations = {
+  fr: {
+    "Delivery & Logistics":"Livraison & Logistique",
+    "Worldwide Service":"Service mondial",
+    "Track Your":"Suivez votre",
+    "Shipment.":"expédition.",
+    "Shipment Tracking":"Suivi de l'expédition",
+    "Tracking History":"Historique du suivi",
+    "Shipment Details":"Détails de l'expédition",
+    "Estimated Delivery":"Livraison estimée",
+    "Service":"Service",
+    "Weight":"Poids",
+    "Origin":"Origine",
+    "Destination":"Destination",
+    "Sender":"Expéditeur",
+    "Recipient":"Destinataire",
+    "Package Type":"Type de colis",
+    "Reference":"Référence",
+    "Contact Us":"Contactez-nous",
+    "Worldwide":"Dans le monde entier"
+  },
+
+  es: {
+    "Delivery & Logistics":"Entrega y Logística",
+    "Worldwide Service":"Servicio mundial",
+    "Track Your":"Rastrea tu",
+    "Shipment.":"envío.",
+    "Shipment Tracking":"Seguimiento del envío",
+    "Tracking History":"Historial de seguimiento",
+    "Shipment Details":"Detalles del envío",
+    "Estimated Delivery":"Entrega estimada",
+    "Service":"Servicio",
+    "Weight":"Peso",
+    "Origin":"Origen",
+    "Destination":"Destino",
+    "Sender":"Remitente",
+    "Recipient":"Destinatario",
+    "Package Type":"Tipo de paquete",
+    "Reference":"Referencia",
+    "Contact Us":"Contáctanos",
+    "Worldwide":"En todo el mundo"
+  },
+
+  it: {
+    "Delivery & Logistics":"Consegne e Logistica",
+    "Worldwide Service":"Servizio mondiale",
+    "Track Your":"Traccia la tua",
+    "Shipment.":"spedizione.",
+    "Shipment Tracking":"Tracciamento della spedizione",
+    "Tracking History":"Cronologia della spedizione",
+    "Shipment Details":"Dettagli della spedizione",
+    "Estimated Delivery":"Consegna stimata",
+    "Service":"Servizio",
+    "Weight":"Peso",
+    "Origin":"Origine",
+    "Destination":"Destinazione",
+    "Sender":"Mittente",
+    "Recipient":"Destinatario",
+    "Package Type":"Tipo di pacco",
+    "Reference":"Riferimento",
+    "Contact Us":"Contattaci",
+    "Worldwide":"In tutto il mondo"
+  },
+
+  de: {
+    "Delivery & Logistics":"Lieferung & Logistik",
+    "Worldwide Service":"Weltweiter Service",
+    "Track Your":"Verfolge deine",
+    "Shipment.":"Sendung.",
+    "Shipment Tracking":"Sendungsverfolgung",
+    "Tracking History":"Sendungsverlauf",
+    "Shipment Details":"Sendungsdetails",
+    "Estimated Delivery":"Voraussichtliche Lieferung",
+    "Service":"Service",
+    "Weight":"Gewicht",
+    "Origin":"Herkunft",
+    "Destination":"Zielort",
+    "Sender":"Absender",
+    "Recipient":"Empfänger",
+    "Package Type":"Paketart",
+    "Reference":"Referenz",
+    "Contact Us":"Kontaktieren Sie uns",
+    "Worldwide":"Weltweit"
+  },
+
+  pt: {
+    "Delivery & Logistics":"Entrega e Logística",
+    "Worldwide Service":"Serviço mundial",
+    "Track Your":"Rastreie sua",
+    "Shipment.":"remessa.",
+    "Shipment Tracking":"Rastreamento da remessa",
+    "Tracking History":"Histórico de rastreamento",
+    "Shipment Details":"Detalhes da remessa",
+    "Estimated Delivery":"Entrega estimada",
+    "Service":"Serviço",
+    "Weight":"Peso",
+    "Origin":"Origem",
+    "Destination":"Destino",
+    "Sender":"Remetente",
+    "Recipient":"Destinatário",
+    "Package Type":"Tipo de pacote",
+    "Reference":"Referência",
+    "Contact Us":"Fale conosco",
+    "Worldwide":"Em todo o mundo"
+  },
+
+  vi: {
+    "Delivery & Logistics":"Giao hàng & Logistics",
+    "Worldwide Service":"Dịch vụ toàn cầu",
+    "Track Your":"Theo dõi",
+    "Shipment.":"lô hàng của bạn.",
+    "Shipment Tracking":"Theo dõi lô hàng",
+    "Tracking History":"Lịch sử theo dõi",
+    "Shipment Details":"Chi tiết lô hàng",
+    "Estimated Delivery":"Ngày giao dự kiến",
+    "Service":"Dịch vụ",
+    "Weight":"Trọng lượng",
+    "Origin":"Điểm gửi",
+    "Destination":"Điểm đến",
+    "Sender":"Người gửi",
+    "Recipient":"Người nhận",
+    "Package Type":"Loại kiện hàng",
+    "Reference":"Mã tham chiếu",
+    "Contact Us":"Liên hệ với chúng tôi",
+    "Worldwide":"Toàn cầu"
+  },
+
+  zh: {
+    "Delivery & Logistics":"配送与物流",
+    "Worldwide Service":"全球服务",
+    "Track Your":"追踪您的",
+    "Shipment.":"货件。",
+    "Shipment Tracking":"货件追踪",
+    "Tracking History":"追踪记录",
+    "Shipment Details":"货件详情",
+    "Estimated Delivery":"预计送达",
+    "Service":"服务",
+    "Weight":"重量",
+    "Origin":"始发地",
+    "Destination":"目的地",
+    "Sender":"发件人",
+    "Recipient":"收件人",
+    "Package Type":"包裹类型",
+    "Reference":"参考编号",
+    "Contact Us":"联系我们",
+    "Worldwide":"全球"
+  },
+
+  ja: {
+    "Delivery & Logistics":"配送・物流",
+    "Worldwide Service":"世界各地対応",
+    "Track Your":"あなたの",
+    "Shipment.":"荷物を追跡",
+    "Shipment Tracking":"荷物追跡",
+    "Tracking History":"追跡履歴",
+    "Shipment Details":"荷物の詳細",
+    "Estimated Delivery":"配達予定日",
+    "Service":"サービス",
+    "Weight":"重量",
+    "Origin":"発送元",
+    "Destination":"配送先",
+    "Sender":"差出人",
+    "Recipient":"受取人",
+    "Package Type":"荷物の種類",
+    "Reference":"参照番号",
+    "Contact Us":"お問い合わせ",
+    "Worldwide":"世界中"
+  },
+
+  ko: {
+    "Delivery & Logistics":"배송 및 물류",
+    "Worldwide Service":"전 세계 서비스",
+    "Track Your":"회원님의",
+    "Shipment.":"배송물을 추적하세요.",
+    "Shipment Tracking":"배송 조회",
+    "Tracking History":"배송 추적 기록",
+    "Shipment Details":"배송물 상세정보",
+    "Estimated Delivery":"예상 배송일",
+    "Service":"서비스",
+    "Weight":"무게",
+    "Origin":"출발지",
+    "Destination":"목적지",
+    "Sender":"발송인",
+    "Recipient":"수취인",
+    "Package Type":"소포 유형",
+    "Reference":"참조 번호",
+    "Contact Us":"문의하기",
+    "Worldwide":"전 세계"
+  },
+
+  ar: {
+    "Delivery & Logistics":"التوصيل والخدمات اللوجستية",
+    "Worldwide Service":"خدمة عالمية",
+    "Track Your":"تتبع",
+    "Shipment.":"شحنتك.",
+    "Shipment Tracking":"تتبع الشحنة",
+    "Tracking History":"سجل التتبع",
+    "Shipment Details":"تفاصيل الشحنة",
+    "Estimated Delivery":"التسليم المتوقع",
+    "Service":"الخدمة",
+    "Weight":"الوزن",
+    "Origin":"المنشأ",
+    "Destination":"الوجهة",
+    "Sender":"المرسل",
+    "Recipient":"المستلم",
+    "Package Type":"نوع الطرد",
+    "Reference":"المرجع",
+    "Contact Us":"اتصل بنا",
+    "Worldwide":"حول العالم"
+  },
+
+  hi: {
+    "Delivery & Logistics":"डिलीवरी और लॉजिस्टिक्स",
+    "Worldwide Service":"विश्वव्यापी सेवा",
+    "Track Your":"अपने",
+    "Shipment.":"शिपमेंट को ट्रैक करें।",
+    "Shipment Tracking":"शिपमेंट ट्रैकिंग",
+    "Tracking History":"ट्रैकिंग इतिहास",
+    "Shipment Details":"शिपमेंट विवरण",
+    "Estimated Delivery":"अनुमानित डिलीवरी",
+    "Service":"सेवा",
+    "Weight":"वज़न",
+    "Origin":"मूल स्थान",
+    "Destination":"गंतव्य",
+    "Sender":"प्रेषक",
+    "Recipient":"प्राप्तकर्ता",
+    "Package Type":"पैकेज प्रकार",
+    "Reference":"संदर्भ",
+    "Contact Us":"संपर्क करें",
+    "Worldwide":"दुनियाभर में"
+  }
+};
+
+const originalTextNodes = new Map();
+
+function changeLanguage(lang) {
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll("body *").forEach(element => {
+    element.childNodes.forEach(node => {
+      if (node.nodeType !== Node.TEXT_NODE) return;
+
+      const original = originalTextNodes.get(node) ?? node.textContent;
+
+      if (!originalTextNodes.has(node)) {
+        originalTextNodes.set(node, original);
+      }
+
+      const cleanText = original.trim();
+
+      if (!cleanText) return;
+
+      const translated =
+        translations[lang] &&
+        translations[lang][cleanText];
+
+      if (translated) {
+        node.textContent =
+          original.replace(cleanText, translated);
+      } else {
+        node.textContent = original;
+      }
+    });
+  });
+
+  if (lang === "ar") {
+    document.body.dir = "rtl";
+  } else {
+    document.body.dir = "ltr";
+  }
+}
 </script>
 
 </body>
