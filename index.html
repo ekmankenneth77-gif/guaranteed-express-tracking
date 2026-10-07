@@ -456,6 +456,132 @@ footer{
     padding-bottom:65px;
   }
 }
+.shipment-progress-card{
+  margin:0 0 24px;
+  background:#ffffff;
+  border:1px solid #e5eaf0;
+  border-radius:18px;
+  padding:26px;
+  box-shadow:0 8px 24px rgba(22,36,58,.06);
+}
+
+.progress-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:24px;
+}
+
+.progress-header h2{
+  margin:0;
+  font-size:22px;
+  color:#16243a;
+}
+
+.progress-subtitle{
+  margin:5px 0 0;
+  color:#718096;
+  font-size:14px;
+}
+
+.progress-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 13px;
+  border-radius:999px;
+  background:#e8f8ef;
+  color:#16834b;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.4px;
+}
+
+.shipment-timeline{
+  position:relative;
+  margin-left:8px;
+}
+
+.shipment-timeline:before{
+  content:"";
+  position:absolute;
+  left:10px;
+  top:12px;
+  bottom:12px;
+  width:2px;
+  background:#dce5ef;
+}
+
+.timeline-item{
+  position:relative;
+  display:flex;
+  gap:18px;
+  min-height:72px;
+}
+
+.timeline-dot{
+  position:relative;
+  z-index:2;
+  flex:0 0 22px;
+  width:22px;
+  height:22px;
+  margin-top:1px;
+  border-radius:50%;
+  background:#ffffff;
+  border:3px solid #cbd5e1;
+}
+
+.timeline-item.completed .timeline-dot{
+  background:#16834b;
+  border-color:#16834b;
+  box-shadow:0 0 0 4px #e8f8ef;
+}
+
+.timeline-item.active .timeline-dot{
+  background:#f58220;
+  border-color:#f58220;
+  box-shadow:0 0 0 4px #fff1e6;
+}
+
+.timeline-content{
+  padding-bottom:20px;
+}
+
+.timeline-content strong{
+  display:block;
+  color:#16243a;
+  font-size:15px;
+  line-height:1.3;
+}
+
+.timeline-content span{
+  display:block;
+  margin-top:5px;
+  color:#718096;
+  font-size:13px;
+  line-height:1.4;
+}
+
+@media(max-width:700px){
+  .shipment-progress-card{
+    padding:20px;
+    border-radius:14px;
+  }
+
+  .progress-header{
+    align-items:flex-start;
+  }
+
+  .progress-header h2{
+    font-size:19px;
+  }
+
+  .progress-badge{
+    font-size:11px;
+    padding:7px 10px;
+  }
+}
 </style>
 </head>
 
@@ -578,7 +704,58 @@ footer{
       </div>
     </div>
 
-    <div class="grid">
+    
+    <div class="card shipment-progress-card">
+  <div class="progress-header">
+    <div>
+      <h2>Shipment Progress</h2>
+      <p class="progress-subtitle">Live shipment journey</p>
+    </div>
+    <span class="progress-badge" id="progressStatus">IN TRANSIT</span>
+  </div>
+
+  <div class="shipment-timeline" id="shipmentTimeline">
+    <div class="timeline-item completed">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <strong>Picked Up</strong>
+        <span>Shipment received</span>
+      </div>
+    </div>
+
+    <div class="timeline-item completed">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <strong>Arrived at Sorting Facility</strong>
+        <span>Shipment processed</span>
+      </div>
+    </div>
+
+    <div class="timeline-item active">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <strong>Departed Sorting Facility</strong>
+        <span>In transit to next destination</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <strong>Out for Delivery</strong>
+        <span>Pending</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <strong>Delivered</strong>
+        <span>Pending</span>
+      </div>
+    </div>
+  </div>
+</div><div class="grid">
 
       <div class="card">
         <h2>Tracking History</h2>
