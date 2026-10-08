@@ -1024,8 +1024,10 @@ async function lookup(){
       </div>
 
     `).join('') ||
+    
 
     '<p>No tracking events yet.</p>';
+    const events = data.events || [];
 
   res.classList.remove('hidden');
 
