@@ -1027,7 +1027,7 @@ async function lookup(){
     
 
     '<p>No tracking events yet.</p>';
-    const events = data.events || [];
+    const events = data.events || [];document.getElementById('progressStatus').textContent = data.status || 'IN TRANSIT';
 
   res.classList.remove('hidden');
 
