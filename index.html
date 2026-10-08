@@ -1115,14 +1115,7 @@ document.getElementById('progressStatus').textContent =
     
 
     '<p>No tracking events yet.</p>';
-    const events = data.events || [];document.getElementById('progressStatus').textContent = data.status || 'IN TRANSIT';
-    const stageIndex = {
-  'Picked Up': 0,
-  'Arrived at Sorting Facility': 1,
-  'Departed Sorting Facility': 2,
-  'Out for Delivery': 3,
-  'Delivered': 4
-};
+
 
 const currentStage = stageIndex[data.progress_stage] ?? 0;
 document.querySelectorAll('#shipmentTimeline .timeline-item').forEach((item, i) => {
