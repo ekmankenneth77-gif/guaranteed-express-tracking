@@ -499,68 +499,86 @@ footer{
 }
 
 .shipment-timeline{
-  position:relative;
-  margin-left:8px;
+position:relative;
+display:flex;
+justify-content:space-between;
+gap:0;
+margin:0;
+padding:20px 0 8px;
 }
 
 .shipment-timeline:before{
-  content:"";
-  position:absolute;
-  left:10px;
-  top:12px;
-  bottom:12px;
-  width:2px;
-  background:#dce5ef;
+content:"";
+position:absolute;
+left:10%;
+right:10%;
+top:31px;
+height:2px;
+background:#dce5ef;
+}
+
+.shipment-timeline.delivered:before{
+background:#16834b;
 }
 
 .timeline-item{
-  position:relative;
-  display:flex;
-  gap:18px;
-  min-height:72px;
+position:relative;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px;
+min-height:0;
+flex:1;
+text-align:center;
 }
 
 .timeline-dot{
-  position:relative;
-  z-index:2;
-  flex:0 0 22px;
-  width:22px;
-  height:22px;
-  margin-top:1px;
-  border-radius:50%;
-  background:#ffffff;
-  border:3px solid #cbd5e1;
+position:relative;
+z-index:2;
+flex:0 0 22px;
+width:22px;
+height:22px;
+margin:0;
+border-radius:50%;
+background:#ffffff;
+border:3px solid #cbd5e1;
 }
 
 .timeline-item.completed .timeline-dot{
-  background:#16834b;
-  border-color:#16834b;
-  box-shadow:0 0 0 4px #e8f8ef;
+background:#16834b;
+border-color:#16834b;
+box-shadow:0 0 0 4px #e8f8ef;
 }
 
 .timeline-item.active .timeline-dot{
-  background:#f58220;
-  border-color:#f58220;
-  box-shadow:0 0 0 4px #fff1e6;
+background:#f58220;
+border-color:#f58220;
+box-shadow:0 0 0 4px #fff1e6;
+}
+
+.timeline-item.held .timeline-dot{
+background:#dc2626;
+border-color:#dc2626;
+box-shadow:0 0 0 4px #fee2e2;
 }
 
 .timeline-content{
-  padding-bottom:20px;
+padding:0 6px;
 }
 
 .timeline-content strong{
-  display:block;
-  color:#16243a;
-  font-size:15px;
-  line-height:1.3;
+display:block;
+color:#16243a;
+font-size:14px;
+line-height:1.3;
 }
 
 .timeline-content span{
-  display:block;
-  margin-top:5px;
-  color:#718096;
-  font-size:13px;
-  line-height:1.4;
+display:block;
+margin-top:5px;
+color:#718096;
+font-size:12px;
+line-height:1.4;
 }
 
 @media(max-width:700px){
@@ -714,47 +732,49 @@ footer{
     <span class="progress-badge" id="progressStatus">IN TRANSIT</span>
   </div>
 
-  <div class="shipment-timeline" id="shipmentTimeline">
-    <div class="timeline-item completed">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <strong>Picked Up</strong>
-        <span>Shipment received</span>
-      </div>
-    </div>
+<div class="shipment-timeline" id="shipmentTimeline">
 
-    <div class="timeline-item completed">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <strong>Arrived at Sorting Facility</strong>
-        <span>Shipment processed</span>
-      </div>
-    </div>
+<div class="timeline-item" data-stage="Order Shipped">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<strong>Order Shipped</strong>
+<span>Shipment dispatched</span>
+</div>
+</div>
 
-    <div class="timeline-item active">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <strong>Departed Sorting Facility</strong>
-        <span>In transit to next destination</span>
-      </div>
-    </div>
+<div class="timeline-item" data-stage="In Transit">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<strong>In Transit</strong>
+<span>Shipment is on the way</span>
+</div>
+</div>
 
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <strong>Out for Delivery</strong>
-        <span>Pending</span>
-      </div>
-    </div>
+<div class="timeline-item" data-stage="Customs Clearance">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<strong>Customs Clearance</strong>
+<span id="customsProgressText">In progress</span>
+</div>
+</div>
 
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <strong>Delivered</strong>
-        <span>Pending</span>
-      </div>
-    </div>
-  </div>
+<div class="timeline-item" data-stage="Out for Delivery">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<strong>Out for Delivery</strong>
+<span>Shipment is with the local delivery team</span>
+</div>
+</div>
+
+<div class="timeline-item" data-stage="Delivered">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<strong>Delivered</strong>
+<span>Shipment delivered</span>
+</div>
+</div>
+
+</div>
 </div><div class="grid">
 
       <div class="card">
@@ -963,6 +983,68 @@ async function lookup(){
     'track_shipment',
     {p_tracking_number:q}
   );
+  const stageIndex = {
+  'Picked Up': 0,
+  'Order Shipped': 0,
+  'Arrived at Sorting Facility': 1,
+  'In Transit': 1,
+  'Departed Sorting Facility': 1,
+  'Customs Clearance': 2,
+  'Out for Delivery': 3,
+  'Delivered': 4
+};
+
+const currentStage = stageIndex[data.progress_stage] ?? 0;
+const isDelivered =
+  data.progress_stage === 'Delivered' &&
+  data.progress_state === 'completed';
+
+const timeline = document.getElementById('shipmentTimeline');
+
+timeline.classList.toggle('delivered', isDelivered);
+
+document.querySelectorAll('#shipmentTimeline .timeline-item').forEach((item, i) => {
+  item.classList.remove('completed', 'active', 'held');
+
+  if (isDelivered) {
+    item.classList.add('completed');
+  } else if (i < currentStage) {
+    item.classList.add('completed');
+  } else if (i === currentStage) {
+    item.classList.add('active');
+
+    if (
+      data.progress_state === 'held' &&
+      data.progress_stage === 'Customs Clearance'
+    ) {
+      item.classList.add('held');
+    }
+  }
+});
+
+const customsText = document.getElementById('customsProgressText');
+
+if (
+  data.progress_stage === 'Customs Clearance' &&
+  data.progress_state === 'held'
+) {
+  customsText.textContent =
+    data.progress_reason
+      ? `Held: ${data.progress_reason}`
+      : 'Held';
+} else if (
+  data.progress_stage === 'Customs Clearance' &&
+  data.progress_state === 'completed'
+) {
+  customsText.textContent = 'Cleared';
+} else if (data.progress_stage === 'Customs Clearance') {
+  customsText.textContent = 'In progress';
+} else {
+  customsText.textContent = 'Customs processing';
+}
+
+document.getElementById('progressStatus').textContent =
+  data.progress_stage || data.status;
 
   if(error || !data || !data.tracking_number){
 
