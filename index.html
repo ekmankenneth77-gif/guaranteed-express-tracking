@@ -1117,7 +1117,7 @@ document.getElementById('progressStatus').textContent =
     '<p>No tracking events yet.</p>';
 
 
-const currentStage = stageIndex[data.progress_stage] ?? 0;
+
 document.querySelectorAll('#shipmentTimeline .timeline-item').forEach((item, i) => {
   item.classList.remove('completed', 'active');
   if (i < currentStage || (i === currentStage && data.progress_state === 'completed')) {
