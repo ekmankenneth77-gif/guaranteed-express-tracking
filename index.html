@@ -983,6 +983,12 @@ async function lookup(){
     'track_shipment',
     {p_tracking_number:q}
   );
+  if(error || !data || !data.tracking_number){
+      err.textContent =
+    'No shipment was found for that tracking number. Please check the number and try again.';
+      err.classList.remove('hidden');
+      return;
+    }
   const stageIndex = {
   'Picked Up': 0,
   'Order Shipped': 0,
